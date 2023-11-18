@@ -1,0 +1,11 @@
+GET http://localhost:8080/ping
+
+###
+
+Get http://localhost:8080/charactersByBank
+
+###
+GET http://localhost:8080/character/DUI49252
+
+###
+GET http://localhost:8080/more/25
