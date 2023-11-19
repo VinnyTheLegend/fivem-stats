@@ -1,8 +1,11 @@
 {{ template "header.html" }}
 <Body>
-    <div>
-        <ol>
-            {{ template "newBlock.html" .}}
-        </ol>
+    <div class="list-container">
+        <div class="list-filter"></div>
+        <div class="list-inner">
+            <ol>
+                {{ template "newBlock.html" .}}
+            </ol>
+        </div>
     </div>
 </Body>

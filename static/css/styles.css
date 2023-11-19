@@ -1,0 +1,34 @@
+:root {
+
+}
+
+.list-inner>ol {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.list-inner>ol>li {
+    height: 10vh;
+    border: green 5px solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.char-name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25%;
+}
+
+.char-info {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex: 1 1 auto;
+    height: 100%;
+    flex-direction: column;
+}
+
