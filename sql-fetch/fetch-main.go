@@ -60,10 +60,12 @@ func FetchSortedCharacters() ([]Character, []Character, []Character) {
 	if charerr != nil {
 		log.Fatal(charerr)
 	}
+	println("Characters Loaded:", len(characters))
 	vehicles, veherr := allVehicles() 
 	if veherr != nil {
 		log.Fatal(veherr)
 	}
+	println("Vehicles Loaded:", len(vehicles))
 
 	for c, character := range characters {
 		for _, vehicle := range vehicles {
