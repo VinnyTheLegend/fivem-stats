@@ -62,8 +62,6 @@ func startRouter() {
 			"characters": characters,
 			"currentShown": intcurrentshown,
 		})
-
-
 	})
 
 	router.GET("/character/:citizenID", func(c *gin.Context) {
@@ -72,9 +70,9 @@ func startRouter() {
 		// Find the character in the list based on the citizenID
 		var character sqlFetch.Character
 		var found bool
-		for _, p := range charactersByBank {
-			if p.CitizenID == citizenID {
-				character = p
+		for _, c := range charactersByBank {
+			if c.CitizenID == citizenID {
+				character = c
 				found = true
 				break
 			}
@@ -86,7 +84,9 @@ func startRouter() {
 		}
 
 		// Do something with the character data, for example, render a template or return JSON
-		c.HTML(http.StatusOK, "character.html", character)
+		//c.HTML(http.StatusOK, "character.html", character)
+		c.IndentedJSON(http.StatusOK, character)
 	})
+
 	router.Run("localhost:80")
 }

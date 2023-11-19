@@ -14,7 +14,6 @@ func updateData() {
 	for {
 		fmt.Println("upating data")
 		_, _, charactersByBank = sqlFetch.FetchSortedCharacters()
-		sqlFetch.FetchSortedVehicles()
 		time.Sleep(1 * time.Hour)
 	}
 	

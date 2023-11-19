@@ -11,6 +11,7 @@ type Character struct {
 	Money Money
 	Job Job
 	Gang Gang
+	Vehicles []Vehicle
 }
 
 type CharInfo struct {

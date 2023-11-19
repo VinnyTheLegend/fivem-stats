@@ -60,6 +60,12 @@ func FetchSortedCharacters() ([]Character, []Character, []Character) {
 	if charerr != nil {
 		log.Fatal(charerr)
 	}
+	var veherr error
+	characters, veherr = vehicleFetch(characters) 
+	if veherr != nil {
+		log.Fatal(veherr)
+	}
+
 
 	charactersByBank := ByField(func(p1, p2 *Character) bool {
 		return p1.Money.Bank < p2.Money.Bank
@@ -78,14 +84,4 @@ func FetchSortedCharacters() ([]Character, []Character, []Character) {
 	}).Sort(characters)
 
 	return charactersByFirstName, charactersByLastName, charactersByBank
-}
-
-func FetchSortedVehicles() {
-	vehicles, veherr := vehicleFetch()
-	if veherr != nil {
-		log.Fatal(veherr)
-	}
-	for _, vehicle := range vehicles {
-		fmt.Printf("%v: %v\n", vehicle.CitizenID, vehicle.Model)
-	}
 }
