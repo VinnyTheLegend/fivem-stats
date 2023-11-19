@@ -58,7 +58,6 @@ func startRouter() {
 				intcurrentshown = intcurrentshown + blocksize
 			}
 		}
-		fmt.Printf("final currentshown: %d\n", intcurrentshown)
 		c.HTML(http.StatusOK, html, gin.H{
 			"characters": characters,
 			"currentShown": intcurrentshown,
