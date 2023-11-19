@@ -3,6 +3,7 @@ package sqlFetch
 import (
 	"encoding/json"
 	"fmt"
+	"math"
 )
 
 type Character struct {
@@ -55,7 +56,18 @@ type Gang struct {
 	IsBoss bool `json:"isboss"`
 }
 
+func round(num float64) int {
+    return int(num + math.Copysign(0.5, num))
+}
+
+func toFixed(num float64, precision int) float64 {
+    output := math.Pow(10, float64(precision))
+    return float64(round(num * output)) / output
+}
+
 func allCharacters() ([]Character, error) {
+
+	
     var characters []Character
 
     rows, err := db.Query("SELECT money, citizenid, charinfo, job, gang FROM players")
@@ -90,8 +102,11 @@ func allCharacters() ([]Character, error) {
 			fmt.Println("Error:", err)
 		}
 
+
+		character.Money.Bank = toFixed(character.Money.Bank, 2)
+		character.Money.Cash = toFixed(character.Money.Cash, 2)
 		if character.Gang.Label == "No Gang Affiliaton" {
-			character.Gang.Label = ""
+			character.Gang.Label = "None"
 		}
 
         characters = append(characters, character)
