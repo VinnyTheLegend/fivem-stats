@@ -9,7 +9,7 @@ type Vehicle struct {
 	Model string
 }
 
-func vehicleFetch(characters []Character) ([]Character, error) {
+func vehicleFetch() ([]Vehicle, error) {
 		var vehicles []Vehicle
 		rows, err := db.Query("SELECT citizenid, vehicle FROM player_vehicles")
 		if err != nil {
@@ -29,13 +29,7 @@ func vehicleFetch(characters []Character) ([]Character, error) {
 			return nil, fmt.Errorf("vehicleFetch: %q", err)
 		}
 
-		for c, character := range characters {
-			for _, vehicle := range vehicles {
-				if vehicle.CitizenID == character.CitizenID {
-					characters[c].Vehicles = append(characters[c].Vehicles, vehicle)
-				}
-			}
-		}
 
-		return characters, nil
+
+		return vehicles, nil
 }

@@ -60,10 +60,17 @@ func FetchSortedCharacters() ([]Character, []Character, []Character) {
 	if charerr != nil {
 		log.Fatal(charerr)
 	}
-	var veherr error
-	characters, veherr = vehicleFetch(characters) 
+	vehicles, veherr := vehicleFetch() 
 	if veherr != nil {
 		log.Fatal(veherr)
+	}
+
+	for c, character := range characters {
+		for _, vehicle := range vehicles {
+			if vehicle.CitizenID == character.CitizenID {
+				characters[c].Vehicles = append(characters[c].Vehicles, vehicle)
+			}
+		}
 	}
 
 
