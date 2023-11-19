@@ -9,7 +9,7 @@ type Vehicle struct {
 	Model string
 }
 
-func vehicleFetch() ([]Vehicle, error) {
+func allVehicles() ([]Vehicle, error) {
 		var vehicles []Vehicle
 		rows, err := db.Query("SELECT citizenid, vehicle FROM player_vehicles")
 		if err != nil {

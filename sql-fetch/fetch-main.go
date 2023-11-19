@@ -60,7 +60,7 @@ func FetchSortedCharacters() ([]Character, []Character, []Character) {
 	if charerr != nil {
 		log.Fatal(charerr)
 	}
-	vehicles, veherr := vehicleFetch() 
+	vehicles, veherr := allVehicles() 
 	if veherr != nil {
 		log.Fatal(veherr)
 	}
