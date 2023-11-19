@@ -6,7 +6,7 @@
         </a>
     </div>
     <div class="char-info">
-        <div><span>Bank: {{.Money.Bank}}</span></div>
+        <div><span>Bank: {{printf "%.2f" .Money.Bank}}</span></div>
         <div><span>Vehicles: {{len .Vehicles}}</span></div>
         <div><span>Job: {{.Job.Label}}</span></div>
         <div><span>Gang: {{.Gang.Label}}</span></div>
@@ -15,7 +15,15 @@
 {{end}}
 
 <li {{if .currentShown}} hx-get="/characters/?currentshown={{.currentShown}}" hx-trigger="revealed" hx-swap="afterend" {{end}}>
-    <a href="/character/{{(index .characters (len .characters | dec)).CitizenID}}">
-        <span>{{(index .characters (len .characters | dec)).CharInfo.FirstName}} last</span>
-    </a>
+    <div class="char-name">
+        <a href="/character/{{(index .characters (len .characters | dec)).CitizenID}}">
+            <span>{{(index .characters (len .characters | dec)).CharInfo.FirstName}} last</span>
+        </a>
+    </div>
+    <div class="char-info">
+        <div><span>Bank: {{(printf "%.2f" (index .characters (len .characters | dec)).Money.Bank)}}</span></div>
+        <div><span>Vehicles: {{len (index .characters (len .characters | dec)).Vehicles}}</span></div>
+        <div><span>Job: {{(index .characters (len .characters | dec)).Job.Label}}</span></div>
+        <div><span>Gang: {{(index .characters (len .characters | dec)).Gang.Label}}</span></div>
+    </div>
 </li>
