@@ -29,6 +29,11 @@
     align-items: center;
     flex: 1 1 auto;
     height: 100%;
-    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 5px;
+}
+
+.char-info>div {
+
 }
 

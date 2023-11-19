@@ -81,7 +81,18 @@ func allCharacters() ([]Character, error) {
 		if err != nil {
 			fmt.Println("Error:", err)
 		}
+		err = json.Unmarshal([]byte(job), &character.Job)
+		if err != nil {
+			fmt.Println("Error:", err)
+		}
+		err = json.Unmarshal([]byte(gang), &character.Gang)
+		if err != nil {
+			fmt.Println("Error:", err)
+		}
 
+		if character.Gang.Label == "No Gang Affiliaton" {
+			character.Gang.Label = ""
+		}
 
         characters = append(characters, character)
     }
