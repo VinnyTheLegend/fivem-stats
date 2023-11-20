@@ -35,6 +35,7 @@ func startRouter() {
 		currentshown := c.DefaultQuery("currentshown", "")
 		descending := c.DefaultQuery("descending", "")
 		var ascending string
+		scrollable := true
 		if descending == "" || descending == "false" {
 			ascending = "true"
 			descending = ""
@@ -54,7 +55,7 @@ func startRouter() {
 			intcurrentshown = blocksize
 			html = "characters.html"
 			if intcurrentshown > len(characters) {
-				intcurrentshown = 0
+				scrollable = false
 			} else {
 				characters = characters[0:intcurrentshown]
 			}
@@ -67,17 +68,19 @@ func startRouter() {
 			}
 			if intcurrentshown + blocksize >= len(characters) {		
 				characters = characters[intcurrentshown:]
-				intcurrentshown = 0
+				scrollable = false
 			} else {
 				characters = characters[intcurrentshown:intcurrentshown+blocksize]
 				intcurrentshown = intcurrentshown + blocksize
 			}
 		}
+		fmt.Println("sending html")
 		c.HTML(http.StatusOK, html, gin.H{
 			"characters": characters,
 			"currentShown": intcurrentshown,
 			"descending": descending,
 			"ascending": ascending,
+			"scrollable": scrollable,
 		})
 	})
 

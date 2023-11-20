@@ -4,7 +4,7 @@
         <div class="list-filter">
             <div class="list-search"><input type="text" id="list-search"><button onclick="">Search</button></div>
             <div class="sort-switch">
-                <select name="descending" id="descending" onchange="window.location=`/characters?descending=${this.value}`">
+                <select name="descending" id="descending" hx-get="/characters/?currentshown=0" hx-target="#char-list" hx-swap="innerHTML">
                     <option name="descending" value="false" {{if .ascending}} selected {{end}}>Ascending</option>
                     <option name="descending" value="true" {{if .descending}} selected {{end}}>Descending</option>
                   </select>
@@ -12,7 +12,7 @@
             <div class="filter-by"></div>
         </div>
         <div class="list-inner">
-            <ol>
+            <ol id="char-list">
                 {{ template "newBlock.html" .}}
             </ol>
         </div>
