@@ -7,13 +7,13 @@ import (
 
 )
 
-//var charactersByFirstName []sqlFetch.Character
-//var charactersByLastName []sqlFetch.Character
+var charactersByFirstName []sqlFetch.Character
+var charactersByLastName []sqlFetch.Character
 var charactersByBank []sqlFetch.Character
 func updateData() {
 	for {
 		fmt.Println("upating data")
-		_, _, charactersByBank = sqlFetch.FetchSortedCharacters()
+		charactersByFirstName, charactersByLastName, charactersByBank = sqlFetch.FetchSortedCharacters()
 		time.Sleep(1 * time.Hour)
 	}
 	

@@ -34,16 +34,28 @@ func startRouter() {
 		blocksize := 25
 		currentshown := c.DefaultQuery("currentshown", "")
 		descending := c.DefaultQuery("descending", "")
+		sortby := c.DefaultQuery("sortby", "firstname")
+		firstname, lastname, bank := false, false, false
 		var ascending string
 		scrollable := true
+		switch sortby {
+		case "firstname":
+			characters = charactersByFirstName
+			firstname = true
+		case "lastname":
+			characters = charactersByLastName
+			lastname = true
+		case "bank":
+			characters = charactersByBank
+			bank = true
+		}
 		if descending == "" || descending == "false" {
 			ascending = "true"
 			descending = ""
-			characters = charactersByBank
 		} else {
 			ascending = ""
-			s := make([]sqlFetch.Character, len(charactersByBank))
-			copy(s, charactersByBank)
+			s := make([]sqlFetch.Character, len(characters))
+			copy(s, characters)
 			for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
 				s[i], s[j] = s[j], s[i]
 			}
@@ -81,6 +93,7 @@ func startRouter() {
 			"descending": descending,
 			"ascending": ascending,
 			"scrollable": scrollable,
+			"sortby": gin.H{"value": sortby, "firstname": firstname, "lastname": lastname, "bank": bank},
 		})
 	})
 
