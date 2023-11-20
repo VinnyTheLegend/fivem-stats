@@ -1,7 +1,16 @@
 {{ template "header.html" }}
 <Body>
     <div class="list-container">
-        <div class="list-filter"></div>
+        <div class="list-filter">
+            <div class="list-search"><input type="text" id="list-search"><button onclick="">Search</button></div>
+            <div class="sort-switch">
+                <select name="descending" id="descending" onchange="window.location=`/characters?descending=${this.value}`">
+                    <option name="descending" value="false" {{if .ascending}} selected {{end}}>Ascending</option>
+                    <option name="descending" value="true" {{if .descending}} selected {{end}}>Descending</option>
+                  </select>
+            </div>
+            <div class="filter-by"></div>
+        </div>
         <div class="list-inner">
             <ol>
                 {{ template "newBlock.html" .}}

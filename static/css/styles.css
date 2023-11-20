@@ -1,5 +1,34 @@
 :root {
+    --main-bg-color: black;
+    --secondary-bg-color: rgb(36, 36, 36);
+    --main-text-color: white;
+    --accent-color: rgb(0, 88, 69);
+    --highlight-color: rgb(0, 183, 255);
+}
 
+body {
+    background-color: var(--main-bg-color);
+    color: var(--main-text-color);
+    padding: 0;
+    margin: 0;
+}
+
+.list-filter {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: var(--secondary-bg-color);
+}
+
+.list-search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.list-search > button {
+    height: 1.2rem;
+    margin-left: 3px;
 }
 
 .list-inner>ol {
@@ -9,18 +38,24 @@
 }
 
 .list-inner>ol>li {
-    height: 10vh;
-    border: green 5px solid;
+    background-color: var(--secondary-bg-color);
+    border: var(--accent-color) 3px solid;
+    border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 15px;
+    padding: 5px;
 }
 
 .char-name {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    width: 25%;
+    width: 35%;
+    font-weight: bolder;
+    padding: 3px;
+    color: var(--highlight-color);
 }
 
 .char-info {
@@ -34,6 +69,9 @@
 }
 
 .char-info>div {
-
+    margin: 3px;
+    padding: 2px;
+    background-color: var(--accent-color);
+    border-radius: 5px;
 }
 

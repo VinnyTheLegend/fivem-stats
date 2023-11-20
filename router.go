@@ -30,9 +30,24 @@ func startRouter() {
 	})
 
 	router.GET("/characters", func(c *gin.Context) {
-		characters := charactersByBank
+		var characters []sqlFetch.Character
 		blocksize := 25
 		currentshown := c.DefaultQuery("currentshown", "")
+		descending := c.DefaultQuery("descending", "")
+		var ascending string
+		if descending == "" || descending == "false" {
+			ascending = "true"
+			descending = ""
+			characters = charactersByBank
+		} else {
+			ascending = ""
+			s := make([]sqlFetch.Character, len(charactersByBank))
+			copy(s, charactersByBank)
+			for i, j := 0, len(s)-1; i < j; i, j = i+1, j-1 {
+				s[i], s[j] = s[j], s[i]
+			}
+			characters = s
+		}
 		var intcurrentshown int
 		var html string
 		if currentshown == "" {
@@ -61,6 +76,8 @@ func startRouter() {
 		c.HTML(http.StatusOK, html, gin.H{
 			"characters": characters,
 			"currentShown": intcurrentshown,
+			"descending": descending,
+			"ascending": ascending,
 		})
 	})
 
