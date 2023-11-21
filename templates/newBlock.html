@@ -14,7 +14,7 @@
 
 <li onclick="window.location='/character/{{(index .characters (len .characters | dec)).CitizenID}}'" 
     {{if .scrollable}} 
-        hx-get="/characters/?currentshown={{.currentShown}}&descending={{.descending}}&sortby={{.sortby.value}}" hx-trigger="revealed" hx-swap="afterend" 
+        hx-get="/characters/updatelist/?currentshown={{.currentShown}}&descending={{.descending}}&sortby={{.sortby.value}}" hx-trigger="revealed" hx-swap="afterend" 
     {{end}}
 >
     <div class="char-name">

@@ -32,12 +32,39 @@ func startRouter() {
 	router.GET("/characters", func(c *gin.Context) {
 		var characters []sqlFetch.Character
 		blocksize := 25
-		currentshown := c.DefaultQuery("currentshown", "")
+		descending := false
+		ascending := true
+		sortby := "firstname"
+		firstname, lastname, bank := true, false, false
+		scrollable := true
+		intcurrentshown := blocksize
+		characters = charactersByFirstName
+		if intcurrentshown > len(characters) {
+			scrollable = false
+		} else {
+			characters = characters[0:intcurrentshown]
+		}
+
+		c.HTML(http.StatusOK, "index.html", gin.H{
+			"characters": characters,
+			"currentShown": intcurrentshown,
+			"descending": descending,
+			"ascending": ascending,
+			"scrollable": scrollable,
+			"sortby": gin.H{"value": sortby, "firstname": firstname, "lastname": lastname, "bank": bank},
+		})
+	})
+
+	router.GET("/characters/updatelist", func(c *gin.Context) {
+		var characters []sqlFetch.Character
+		blocksize := 25
+		currentshown := c.DefaultQuery("currentshown", "0")
 		descending := c.DefaultQuery("descending", "")
 		sortby := c.DefaultQuery("sortby", "firstname")
 		firstname, lastname, bank := false, false, false
 		var ascending string
 		scrollable := true
+
 		switch sortby {
 		case "firstname":
 			characters = charactersByFirstName
@@ -49,6 +76,7 @@ func startRouter() {
 			characters = charactersByBank
 			bank = true
 		}
+
 		if descending == "" || descending == "false" {
 			ascending = "true"
 			descending = ""
@@ -61,33 +89,22 @@ func startRouter() {
 			}
 			characters = s
 		}
+
 		var intcurrentshown int
-		var html string
-		if currentshown == "" {
-			intcurrentshown = blocksize
-			html = "index.html"
-			if intcurrentshown > len(characters) {
-				scrollable = false
-			} else {
-				characters = characters[0:intcurrentshown]
-			}
-		} else {
-			html = "newBlock.html"
-			var err error
-			intcurrentshown, err = strconv.Atoi(currentshown)
-			if err != nil {
-				fmt.Printf("htmx more string: %q\n", err)
-			}
-			if intcurrentshown + blocksize >= len(characters) {		
-				characters = characters[intcurrentshown:]
-				scrollable = false
-			} else {
-				characters = characters[intcurrentshown:intcurrentshown+blocksize]
-				intcurrentshown = intcurrentshown + blocksize
-			}
+		var err error
+		intcurrentshown, err = strconv.Atoi(currentshown)
+		if err != nil {
+			fmt.Printf("htmx more string: %q\n", err)
 		}
-		fmt.Println("sending html")
-		c.HTML(http.StatusOK, html, gin.H{
+		if intcurrentshown + blocksize >= len(characters) {		
+			characters = characters[intcurrentshown:]
+			scrollable = false
+		} else {
+			characters = characters[intcurrentshown:intcurrentshown+blocksize]
+			intcurrentshown = intcurrentshown + blocksize
+		}
+
+		c.HTML(http.StatusOK, "newBlock.html", gin.H{
 			"characters": characters,
 			"currentShown": intcurrentshown,
 			"descending": descending,
@@ -95,6 +112,29 @@ func startRouter() {
 			"scrollable": scrollable,
 			"sortby": gin.H{"value": sortby, "firstname": firstname, "lastname": lastname, "bank": bank},
 		})
+
+	})
+	
+	router.GET("/characters/updatefilter", func(c *gin.Context) {
+		descending := c.DefaultQuery("descending", "")
+		sortby := c.DefaultQuery("sortby", "firstname")
+		firstname, lastname, bank := sortby=="firstname", sortby=="lastname", sortby=="bank"
+		var ascending string
+
+
+		if descending == "" || descending == "false" {
+			ascending = "true"
+			descending = ""
+		} else {
+			ascending = ""
+		}
+
+		c.HTML(http.StatusOK, "listFilter.html", gin.H{
+			"descending": descending,
+			"ascending": ascending,
+			"sortby": gin.H{"value": sortby, "firstname": firstname, "lastname": lastname, "bank": bank},
+		})
+
 	})
 
 	router.GET("/character/:citizenID", func(c *gin.Context) {
