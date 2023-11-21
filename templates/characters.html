@@ -1,26 +1,23 @@
-{{ template "header.html" .}}
-<Body>
-    <div class="list-container">
-        <div class="list-filter">
-            <div class="list-search"><input type="text" id="list-search"><button onclick="">Search</button></div>
-            <div class="sort-switch">
-                <select name="descending" id="descending" onchange="window.location=`/characters/?sortby=${sortby}${this.value}`">
-                    <option name="descending" value="" {{if .ascending}} selected {{end}}>Ascending</option>
-                    <option name="descending" value="&descending=true" {{if .descending}} selected {{end}}>Descending</option>
-                  </select>
-            </div>
-            <div class="filter-by">
-                <select name="sortby" id="sortby" onchange="window.location=`/characters/?sortby=${this.value}${descending}`">
-                    <option name="sortby" value="firstname" {{if .sortby.firstname}} selected {{end}} >First Name</option>
-                    <option name="sortby" value="lastname" {{if .sortby.lastname}} selected {{end}} >Last Name</option>
-                    <option name="sortby" value="bank" {{if .sortby.bank}} selected {{end}} >Bank</option>
-                  </select>
-            </div>
+<div class="list-container" id="list-container">
+    <div class="list-filter">
+        <div class="list-search"><input type="text" id="list-search"><button onclick="">Search</button></div>
+        <div class="sort-switch">
+            <select name="descending" id="descending" onchange="window.location=`/characters/?sortby=${sortby}${this.value}`">
+                <option name="descending" value="" {{if .ascending}} selected {{end}}>Ascending</option>
+                <option name="descending" value="&descending=true" {{if .descending}} selected {{end}}>Descending</option>
+                </select>
         </div>
-        <div class="list-inner">
-            <ol id="char-list">
-                {{ template "newBlock.html" .}}
-            </ol>
+        <div class="filter-by">
+            <select name="sortby" id="sortby" onchange="window.location=`/characters/?sortby=${this.value}${descending}`">
+                <option name="sortby" value="firstname" {{if .sortby.firstname}} selected {{end}} >First Name</option>
+                <option name="sortby" value="lastname" {{if .sortby.lastname}} selected {{end}} >Last Name</option>
+                <option name="sortby" value="bank" {{if .sortby.bank}} selected {{end}} >Bank</option>
+                </select>
         </div>
     </div>
-</Body>
+    <div class="list-inner">
+        <ol id="char-list">
+            {{ template "newBlock.html" .}}
+        </ol>
+    </div>
+</div>

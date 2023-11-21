@@ -65,7 +65,7 @@ func startRouter() {
 		var html string
 		if currentshown == "" {
 			intcurrentshown = blocksize
-			html = "characters.html"
+			html = "index.html"
 			if intcurrentshown > len(characters) {
 				scrollable = false
 			} else {
