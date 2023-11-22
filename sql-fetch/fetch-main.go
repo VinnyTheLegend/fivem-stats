@@ -81,6 +81,11 @@ func FetchSortedCharacters() ([]Character, []Character, []Character) {
 		}
 		vnew = vtemp
 	}
+	var pfperr error
+	characters, pfperr = fetchPfps(characters)
+	if pfperr != nil {
+		log.Println(pfperr)
+	}
 
 
 	charactersByBank := ByField(func(p1, p2 *Character) bool {

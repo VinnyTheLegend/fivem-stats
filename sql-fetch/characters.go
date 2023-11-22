@@ -12,6 +12,7 @@ type Character struct {
 	Job Job
 	Gang Gang
 	Vehicles []Vehicle
+	MDTData MDTData
 }
 
 type CharInfo struct {
@@ -54,6 +55,7 @@ type Gang struct {
 	Name string `json:"name"`
 	IsBoss bool `json:"isboss"`
 }
+
 
 
 func allCharacters() ([]Character, error) {
