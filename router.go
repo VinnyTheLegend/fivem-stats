@@ -7,6 +7,7 @@ import (
 	"strconv"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"strings"
 )
 
 func startRouter() {
@@ -59,11 +60,12 @@ func startRouter() {
 		var characters []sqlFetch.Character
 		blocksize := 25
 		currentshown := c.DefaultQuery("currentshown", "0")
+		scrollable := true
+		var ascending string
 		descending := c.DefaultQuery("descending", "")
 		sortby := c.DefaultQuery("sortby", "firstname")
 		firstname, lastname, bank := false, false, false
-		var ascending string
-		scrollable := true
+		search := c.DefaultQuery("search", "")
 
 		switch sortby {
 		case "firstname":
@@ -90,6 +92,16 @@ func startRouter() {
 			characters = s
 		}
 
+		if search != "" {
+			var s []sqlFetch.Character
+			for _, character := range characters {
+				if strings.Contains(strings.ToLower(character.CharInfo.FirstName) + " " + strings.ToLower(character.CharInfo.LastName), strings.ToLower(search)) {
+					s = append(s, character)
+				}
+			}
+			characters = s
+		}
+
 		var intcurrentshown int
 		var err error
 		intcurrentshown, err = strconv.Atoi(currentshown)
@@ -111,15 +123,17 @@ func startRouter() {
 			"ascending": ascending,
 			"scrollable": scrollable,
 			"sortby": gin.H{"value": sortby, "firstname": firstname, "lastname": lastname, "bank": bank},
+			"search": search,
 		})
 
 	})
 	
 	router.GET("/characters/updatefilter", func(c *gin.Context) {
 		descending := c.DefaultQuery("descending", "")
+		var ascending string
 		sortby := c.DefaultQuery("sortby", "firstname")
 		firstname, lastname, bank := sortby=="firstname", sortby=="lastname", sortby=="bank"
-		var ascending string
+		search := c.DefaultQuery("search", "")
 
 
 		if descending == "" || descending == "false" {
@@ -133,6 +147,7 @@ func startRouter() {
 			"descending": descending,
 			"ascending": ascending,
 			"sortby": gin.H{"value": sortby, "firstname": firstname, "lastname": lastname, "bank": bank},
+			"search": search,
 		})
 
 	})

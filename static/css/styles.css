@@ -12,12 +12,17 @@ body {
     padding: 0;
     margin: 0;
 }
-
+/* outer */
+#list-filter { 
+    background-color: var(--secondary-bg-color);
+}
+/* inner */
 .list-filter {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    background-color: var(--secondary-bg-color);
+    max-width: 900px;
+    margin: 0 auto 0 auto;
 }
 
 .list-search {
@@ -31,10 +36,19 @@ body {
     margin-left: 3px;
 }
 
+.list-inner {
+    width: 100%;
+    align-items: center;
+}
+
 .list-inner>ol {
     list-style-type: none;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0;
+    margin-top: 0;
     padding: 0;
-    margin: 0;
 }
 
 .list-inner>ol>li {
