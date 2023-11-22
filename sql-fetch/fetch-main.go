@@ -67,12 +67,19 @@ func FetchSortedCharacters() ([]Character, []Character, []Character) {
 	}
 	println("Vehicles Loaded:", len(vehicles))
 
+	vnew := make([]Vehicle, len(vehicles))
+	copy(vnew, vehicles)
 	for c, character := range characters {
-		for _, vehicle := range vehicles {
+		var vtemp []Vehicle
+		for _, vehicle := range vnew {
+			newveh := vehicle
 			if vehicle.CitizenID == character.CitizenID {
-				characters[c].Vehicles = append(characters[c].Vehicles, vehicle)
+				characters[c].Vehicles = append(characters[c].Vehicles, newveh)
+			} else {
+				vtemp = append(vtemp, newveh)
 			}
 		}
+		vnew = vtemp
 	}
 
 
