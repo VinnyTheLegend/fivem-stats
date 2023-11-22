@@ -1,7 +1,7 @@
 {{- range (len .characters | dec | slice .characters 0) }}
 <li onclick="window.location='/character/{{.CitizenID}}'">
     <div class="char-name">
-            <span>{{.CharInfo.FirstName}} {{.CharInfo.LastName}}</span>
+        <span>{{.CharInfo.FirstName}} {{.CharInfo.LastName}}</span>
     </div>
     <div class="char-info">
         <div><span>Bank: ${{printf "%.2f" .Money.Bank}}</span></div>
@@ -13,12 +13,14 @@
 {{end}}
 
 <li onclick="window.location='/character/{{(index .characters (len .characters | dec)).CitizenID}}'" 
-    {{if .scrollable}} 
-        hx-get="/characters/updatelist/?currentshown={{.currentShown}}&descending={{.descending}}&sortby={{.sortby.value}}" hx-trigger="revealed" hx-swap="afterend" 
+    {{if .scrollable}}
+        hx-get="/characters/updatelist/?currentshown={{.currentShown}}&descending={{.descending}}&sortby={{.sortby.value}}"
+        hx-trigger="revealed" hx-swap="afterend" 
     {{end}}
 >
     <div class="char-name">
-            <span>{{(index .characters (len .characters | dec)).CharInfo.FirstName}} {{(index .characters (len .characters | dec)).CharInfo.LastName}}</span>
+        <span>{{(index .characters (len .characters | dec)).CharInfo.FirstName}} {{(index .characters (len .characters |
+            dec)).CharInfo.LastName}}</span>
     </div>
     <div class="char-info">
         <div><span>Bank: ${{(printf "%.2f" (index .characters (len .characters | dec)).Money.Bank)}}</span></div>

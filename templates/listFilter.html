@@ -1,18 +1,24 @@
-<div class="list-filter" hx-get="/characters/updatelist/?currentshown=0&descending={{.descending}}&sortby={{.sortby.value}}&search={{.search}}" hx-target="#char-list" hx-trigger="load">
+<div class="list-filter"
+    hx-get="/characters/updatelist/?currentshown=0&descending={{.descending}}&sortby={{.sortby.value}}&search={{.search}}"
+    hx-target="#char-list" hx-trigger="load">
     <div class="list-search">
-        <input type="text" id="list-search" name="search" value="{{.search}}" hx-get="/characters/updatefilter/?sortby={{.sortby.value}}&descending={{.descending}}" hx-target="#list-filter" hx-trigger="keyup changed delay:.1s">
+        <input type="text" id="list-search" name="search" value="{{.search}}"
+            hx-get="/characters/updatefilter/?sortby={{.sortby.value}}&descending={{.descending}}"
+            hx-target="#list-filter" hx-trigger="keyup changed delay:.1s">
     </div>
     <div class="sort-switch">
-        <select name="descending" id="descending" hx-get="/characters/updatefilter/?sortby={{.sortby.value}}&search={{.search}}" hx-target="#list-filter">
+        <select name="descending" id="descending"
+            hx-get="/characters/updatefilter/?sortby={{.sortby.value}}&search={{.search}}" hx-target="#list-filter">
             <option name="descending" value="" {{if .ascending}} selected {{end}}>Ascending</option>
             <option name="descending" value="true" {{if .descending}} selected {{end}}>Descending</option>
         </select>
     </div>
     <div class="filter-by">
-        <select name="sortby" id="sortby" hx-get="/characters/updatefilter/?descending={{.descending}}&search={{.search}}" hx-target="#list-filter">
-            <option name="sortby" value="firstname" {{if .sortby.firstname}} selected {{end}} >First Name</option>
-            <option name="sortby" value="lastname" {{if .sortby.lastname}} selected {{end}} >Last Name</option>
-            <option name="sortby" value="bank" {{if .sortby.bank}} selected {{end}} >Bank</option>
-            </select>
+        <select name="sortby" id="sortby"
+            hx-get="/characters/updatefilter/?descending={{.descending}}&search={{.search}}" hx-target="#list-filter">
+            <option name="sortby" value="firstname" {{if .sortby.firstname}} selected {{end}}>First Name</option>
+            <option name="sortby" value="lastname" {{if .sortby.lastname}} selected {{end}}>Last Name</option>
+            <option name="sortby" value="bank" {{if .sortby.bank}} selected {{end}}>Bank</option>
+        </select>
     </div>
 </div>
