@@ -172,8 +172,8 @@ func startRouter() {
 		}
 
 		// Do something with the character data, for example, render a template or return JSON
-		//c.HTML(http.StatusOK, "character.html", character)
-		c.IndentedJSON(http.StatusOK, character)
+		c.HTML(http.StatusOK, "character.html", character)
+		//c.IndentedJSON(http.StatusOK, character)
 	})
 
 	router.Run("localhost:80")

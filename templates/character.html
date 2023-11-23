@@ -1,3 +1,39 @@
-<!-- {{ template "header.html" }} -->
+{{ template "header.html" }}
 
-{{.}}
+<body>
+    <div class="profile-page">
+        <div class="profile">
+            <div class="profile-pic">
+                <img src="{{.MDTData.PfpURL}}" alt="">
+                <div id="profile-name">
+                    <h1>{{.CharInfo.FirstName}} {{.CharInfo.LastName}}</h1>
+                </div>
+
+            </div>
+            <div class="profile-info">
+                <div id="cid">
+                    <h3>{{.CitizenID}}</h3>
+                </div>
+                <div class="data">
+                    <div class="data-inner">
+                        <div>
+                            <span id="birthday">{{.CharInfo.Birthday}}</span><br>
+                            <span id="nationality">{{.CharInfo.Nationality}}</span><br>
+                            <span>Phone Number:</span>
+                        </div>
+                        <div>
+                            <span id="age">age</span><br>
+                            <span id="gender">{{.CharInfo.Gender}}</span><br>
+                            <div id="phone-number"><span>{{.CharInfo.PhoneNumber}}</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="backstory">
+                <p>{{.CharInfo.Backstory}}</p>
+            </div>
+        </div>
+        <div class="profile-vehicle-list">
+        </div>
+    </div>
+</body>
