@@ -34,6 +34,32 @@
             </div>
         </div>
         <div class="profile-vehicle-list">
+            <ul>
+                {{- range .Vehicles}}
+                <li>
+                    <div class="veh-name">
+                        <span>{{.Model}}</span>
+                    </div>
+                    <div class="veh-info">
+                        <span>
+                            Garage: {{if .Location}} {{.Location}} {{else}} {{.Garage}} {{end}}
+                        </span>
+                        <span>
+                            Plate: {{.Plate}}
+                        </span>
+                        <span>
+                            Fuel: {{.Fuel}}
+                        </span>
+                        <span>
+                            Engine: {{.Engine}}
+                        </span>
+                        <span>
+                            Body: {{.Body}}
+                        </span>
+                    </div>
+                </li>
+                {{end}}
+            </ul>
         </div>
     </div>
 </body>
