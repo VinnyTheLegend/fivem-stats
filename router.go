@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"strings"
+	"os"
 )
 
 func startRouter() {
@@ -176,5 +177,5 @@ func startRouter() {
 		//c.IndentedJSON(http.StatusOK, character)
 	})
 
-	router.Run("localhost:80")
+	router.Run("localhost:80" + os.Getenv("PORT"))
 }
