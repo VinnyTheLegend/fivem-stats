@@ -19,8 +19,8 @@ func init() {
 		User:   os.Getenv("DBUSER"),
 		Passwd: os.Getenv("DBPASS"),
 		Net:    "tcp",
-		Addr:   "insanitygaming.net",
-		DBName: "s30_roleplay",
+		Addr:   os.Getenv("DBCONNECT"),
+		DBName: os.Getenv("DBNAME"),
 		AllowNativePasswords: true,
 	}
 	// Get a database handle.

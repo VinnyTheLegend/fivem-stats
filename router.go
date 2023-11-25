@@ -177,5 +177,8 @@ func startRouter() {
 		//c.IndentedJSON(http.StatusOK, character)
 	})
 
-	router.Run("localhost:80" + os.Getenv("PORT"))
+	ip := "0.0.0.0"
+	port := os.Getenv("WEBPORT")
+	hostaddr := ip + ":" + port
+	router.Run(hostaddr)
 }
