@@ -22,8 +22,8 @@
                             <span>Phone Number:</span>
                         </div>
                         <div>
-                            <span id="age">age</span><br>
-                            <span id="gender">{{.CharInfo.Gender}}</span><br>
+                            <span id="age">{{.Age}} y/o</span><br>
+                            <span id="gender">{{if .CharInfo.Gender}}Female{{else}}Male{{end}}</span><br>
                             <div id="phone-number"><span>{{.CharInfo.PhoneNumber}}</span></div>
                         </div>
                     </div>

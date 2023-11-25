@@ -3,6 +3,7 @@ package sqlFetch
 import (
 	"encoding/json"
 	"fmt"
+	"time"
 )
 
 type Character struct {
@@ -13,6 +14,7 @@ type Character struct {
 	Gang Gang
 	Vehicles []Vehicle
 	MDTData MDTData
+	Age int
 }
 
 type CharInfo struct {
@@ -56,7 +58,23 @@ type Gang struct {
 	IsBoss bool `json:"isboss"`
 }
 
+func CalculateAge(birthdayString string) (int, error) {
+	birthday, err := time.Parse("01/02/2006", birthdayString)
+	if err != nil {
+		return 0, err
+	}
 
+	currentDate := time.Now()
+	// Calculate the difference in years
+	age := currentDate.Year() - birthday.Year()
+
+	// Check if the birthday for this year has occurred or not
+	if currentDate.YearDay() < birthday.YearDay() {
+		age--
+	}
+
+	return age, nil
+}
 
 func allCharacters() ([]Character, error) {
 
@@ -98,6 +116,11 @@ func allCharacters() ([]Character, error) {
 
 		if character.Gang.Label == "No Gang Affiliaton" {
 			character.Gang.Label = "None"
+		}
+
+		character.Age, err = CalculateAge(character.CharInfo.Birthday)
+		if err != nil {
+			fmt.Println("Error:", err)
 		}
 
         characters = append(characters, character)
